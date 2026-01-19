@@ -1,39 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Bot, ImagePlus, Send } from "lucide-react";
 import { BlockMath } from "react-katex";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
-const conversation = [
-  {
-    role: "assistant",
-    text: "Vamos decompor o problema. Primeiro, identifique as forças e escolha um referencial inercial.",
-    latex: "F = m a"
-  },
-  {
-    role: "user",
-    text: "Considere um satélite em órbita circular. Como relacionar velocidade e raio?"
-  },
-  {
-    role: "assistant",
-    text: "Use a gravitação newtoniana e iguale força centrípeta:",
-    latex: "\nG \\frac{M m}{r^2} = m \\frac{v^2}{r}\n"
-  }
-];
+import { useUserStore } from "@/store/useUserStore";
 
 export function TacticalAISolver() {
   const [message, setMessage] = useState("");
+  const { profile, inventory } = useUserStore();
+  const livroDestaque = inventory[0] ?? "Irodov";
+  const saudacao = useMemo(
+    () =>
+      `Bem-vindo ao cockpit, ${profile?.nomeGuerra ?? "cadete"}. Vejo que você tem o ${livroDestaque} no arsenal. Vamos começar por ele?`,
+    [profile?.nomeGuerra, livroDestaque]
+  );
+  const conversation = useMemo(
+    () => [
+      {
+        role: "assistant",
+        text: saudacao
+      },
+      {
+        role: "assistant",
+        text: "Vamos decompor o problema. Primeiro, identifique as forças e escolha um referencial inercial.",
+        latex: "F = m a"
+      },
+      {
+        role: "user",
+        text: "Considere um satélite em órbita circular. Como relacionar velocidade e raio?"
+      },
+      {
+        role: "assistant",
+        text: "Use a gravitação newtoniana e iguale força centrípeta:",
+        latex: "\nG \\frac{M m}{r^2} = m \\frac{v^2}{r}\n"
+      }
+    ],
+    [saudacao]
+  );
 
   return (
     <Card className="h-full">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Bot className="h-4 w-4 text-accent" />
-          Tutor Tático IA
+          Copiloto Estratégico
         </CardTitle>
       </CardHeader>
       <CardContent className="flex h-[520px] flex-col gap-4">
@@ -48,7 +62,7 @@ export function TacticalAISolver() {
               }`}
             >
               <p className="mb-2 text-xs uppercase text-zinc-500">
-                {item.role === "assistant" ? "Tutor" : "Cadete"}
+                {item.role === "assistant" ? "Copiloto" : "Cadete"}
               </p>
               <p className="text-sm text-zinc-200">{item.text}</p>
               {item.latex && (
@@ -72,7 +86,7 @@ export function TacticalAISolver() {
           />
           <Button className="w-full">
             <Send className="h-4 w-4" />
-            Enviar ao Tutor
+            Enviar ao Copiloto
           </Button>
         </div>
       </CardContent>

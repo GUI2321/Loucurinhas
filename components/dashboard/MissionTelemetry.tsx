@@ -43,7 +43,7 @@ export function MissionTelemetry() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Activity className="h-4 w-4 text-accent" />
-          Telemetria da Missão
+          Radar de Competência
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">

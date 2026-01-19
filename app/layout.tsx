@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import "katex/dist/katex.min.css";
 import { Toaster } from "sonner";
@@ -7,6 +7,11 @@ import { Toaster } from "sonner";
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono"
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans"
 });
 
 export const metadata: Metadata = {
@@ -20,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${jetbrainsMono.variable} bg-background text-foreground`}>
+    <html lang="pt-BR" className="dark">
+      <body className={`${inter.variable} ${jetbrainsMono.variable} bg-background text-foreground font-sans`}>
         {children}
         <Toaster theme="dark" richColors />
       </body>

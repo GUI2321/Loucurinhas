@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useMissionStore, type Subject } from "@/store/useMissionStore";
 
 const subjects: Subject[] = ["Física", "Matemática", "Química", "Português", "Inglês"];
@@ -48,22 +49,25 @@ export function FlightTimeModule() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-zinc-100">
           <Clock className="h-4 w-4 text-accent" />
-          Tempo de Voo
+          Cronômetro Tático
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="text-4xl font-semibold text-white">{formattedTime}</div>
-        <div className="flex flex-wrap gap-2">
-          {subjects.map((subject) => (
-            <Button
-              key={subject}
-              variant={subject === timer.subject ? "default" : "outline"}
-              className="text-xs"
-              onClick={() => timer.setSubject(subject)}
-            >
-              {subject}
-            </Button>
-          ))}
+        <div className="space-y-2">
+          <label className="text-xs uppercase text-zinc-500">Matéria</label>
+          <Select value={timer.subject} onValueChange={(value) => timer.setSubject(value as Subject)}>
+            <SelectTrigger>
+              <SelectValue placeholder="Selecione a matéria" />
+            </SelectTrigger>
+            <SelectContent>
+              {subjects.map((subject) => (
+                <SelectItem key={subject} value={subject}>
+                  {subject}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div className="flex gap-2">
           <Input

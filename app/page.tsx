@@ -7,8 +7,16 @@ import { MissionTelemetry } from "@/components/dashboard/MissionTelemetry";
 import { TacticalAISolver } from "@/components/dashboard/TacticalAISolver";
 import { PsyOpsModule } from "@/components/dashboard/PsyOpsModule";
 import { RankSystem } from "@/components/dashboard/RankSystem";
+import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
+import { useUserStore } from "@/store/useUserStore";
 
 export default function HomePage() {
+  const { isOnboarded, profile } = useUserStore();
+
+  if (!isOnboarded) {
+    return <OnboardingWizard />;
+  }
+
   return (
     <main className="min-h-screen bg-background p-6">
       <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[280px_1fr]">
@@ -17,11 +25,13 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">ITA Stratosphere</p>
-              <h1 className="text-2xl font-semibold text-white">Centro de Operações</h1>
+              <h1 className="text-2xl font-semibold text-white">
+                Centro de Operações · {profile?.nomeGuerra}
+              </h1>
             </div>
             <TabsList>
               <TabsTrigger value="dashboard">Painel</TabsTrigger>
-              <TabsTrigger value="ai">Tutor IA</TabsTrigger>
+              <TabsTrigger value="ai">Copiloto</TabsTrigger>
               <TabsTrigger value="psyops">Psicólogo</TabsTrigger>
             </TabsList>
           </div>

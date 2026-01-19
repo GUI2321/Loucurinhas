@@ -21,7 +21,8 @@ const config: Config = {
         border: "#27272a"
       },
       fontFamily: {
-        mono: ["var(--font-mono)", "JetBrains Mono", "monospace"]
+        mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
+        sans: ["var(--font-sans)", "Inter", "system-ui", "sans-serif"]
       },
       boxShadow: {
         glow: "0 0 20px rgba(34, 211, 238, 0.2)"

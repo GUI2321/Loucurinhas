@@ -66,9 +66,9 @@ export const useMissionStore = create<MissionStore>()(
       },
       rpg: {
         rankTitle: "Cadete Engenheiro",
-        currentXP: 4200,
-        level: 7,
-        streak: 12,
+        currentXP: 0,
+        level: 1,
+        streak: 0,
         addXP: (amount) => {
           const { rpg } = get();
           const newXP = rpg.currentXP + amount;
